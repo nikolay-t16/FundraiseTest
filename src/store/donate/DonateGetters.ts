@@ -12,7 +12,7 @@ export default class DonateGetters extends Getters<DonateState> {
   }
 
   public get presets(): number[] {
-    const { rate } = this.currentCurrency;
+    const { rate } = this.getters.currentCurrency;
     return this.state.presets.map((value) => PresetsHelper.makePressetValue(value, rate));
   }
 }
