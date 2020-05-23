@@ -1,15 +1,18 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {createStore, Module} from 'vuex-smart-module';
+import donateStore from './donate/DonateStore';
 
 Vue.use(Vuex);
-
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+const rootModule = new Module({
   modules: {
+    donateStore,
   },
 });
+
+export default createStore(
+  rootModule,
+  {
+    strict: true,
+  },
+);
