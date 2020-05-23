@@ -31,3 +31,5 @@ class DonateState {
 }
 
 export default DonateState;
+
+export { CurrenciesData };

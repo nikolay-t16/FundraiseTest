@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {createStore, Module} from 'vuex-smart-module';
+import { createStore, Module } from 'vuex-smart-module';
 import donateStore from './donate/DonateStore';
 
 Vue.use(Vuex);
