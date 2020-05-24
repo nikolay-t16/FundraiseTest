@@ -3,14 +3,15 @@
     <form>
       <div class="donate-form__presets">
         <preset-button
-          v-for="preset in donateStore.getters.presets"
+          v-for="(preset, index) in donateStore.getters.presets"
           v-bind:key="preset"
           :value="preset"
+          :index="index"
           :is-selected="preset === currentDonate"
           @click="onClickPresetButton"
         />
       </div>
-      <input v-model="currentDonate"/>
+      <input v-model="currentDonate" @change="onCurrentDonateChange"/>
       <select v-model="currentCurrencyCode">
         <option
           v-for="currency in donateStore.getters.currencies"
@@ -39,16 +40,26 @@ export default class DonateForm extends Vue {
 
     private currentDonate = 0;
 
+    private currentPresetIndex: number | null = 0;
+
     private get currentCurrencyCode(): string {
       return this.donateStore.getters.currentCurrency.code;
     }
 
     private set currentCurrencyCode(value: string) {
       this.donateStore.mutations.setCurrentCurrency(value);
+      if (this.currentPresetIndex != null) {
+        this.currentDonate = this.donateStore.getters.presets[this.currentPresetIndex];
+      }
     }
 
-    private onClickPresetButton(value: number): void {
+    private onClickPresetButton(value: number, index: number): void {
       this.currentDonate = value;
+      this.currentPresetIndex = index;
+    }
+
+    private onCurrentDonateChange() {
+      this.currentPresetIndex = null;
     }
 }
 </script>

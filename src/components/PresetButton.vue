@@ -14,7 +14,7 @@ import donate from '@/store/donate/DonateStore';
 import PresetsHelper from '@/helpers/PresetsHelper';
 
 @Component({
-  props: ['value', 'isSelected'],
+  props: ['value', 'isSelected', 'index'],
 })
 export default class PresetButton extends Vue {
   private donateStore = donate.context(this.$store);
@@ -23,6 +23,11 @@ export default class PresetButton extends Vue {
   public readonly value!: number;
 
   private valueLocal: number = this.value ? this.value : 0;
+
+  @Prop(Number)
+  public readonly index!: number;
+
+  private indexLocal: number = this.index ? this.index : 0;
 
   @Prop(Boolean)
   public readonly isSelected!: boolean;
@@ -39,7 +44,7 @@ export default class PresetButton extends Vue {
   }
 
   private onClick() {
-    this.$emit('click', this.valueLocal);
+    this.$emit('click', this.valueLocal, this.indexLocal);
   }
 }
 </script>
