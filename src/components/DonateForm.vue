@@ -14,7 +14,7 @@
       <input
         v-model="currentDonate"
         @change="onCurrentDonateChange"
-        @keydown="this.onCurrentDonateKeypress"
+        @keyup="this.onCurrentDonateKeyup"
       />
       <select v-model="currentCurrencyCode">
         <option
@@ -57,7 +57,6 @@ export default class DonateForm extends Vue {
       if (this.currentPresetIndex != null) {
         this.currentDonate = this.donateStore.getters.presets[this.currentPresetIndex];
       }
-      console.log('currentCurrencyCode', value, this.donateStore.state.currentCurrency);
     }
 
     private onClickPresetButton(value: number, index: number): void {
@@ -70,7 +69,7 @@ export default class DonateForm extends Vue {
       this.currentDonate = Helper.formatDonate(this.currentDonate.toString());
     }
 
-    public onCurrentDonateKeypress() {
+    public onCurrentDonateKeyup(event: InputEvent) {
       this.onCurrentDonateChange();
     }
 
