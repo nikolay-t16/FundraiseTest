@@ -2,6 +2,9 @@ import Koa from 'koa';
 import cors from 'koa2-cors';
 import koaBody from 'koa-bodyparser';
 import Router from 'koa-router';
+// @ts-ignore
+import mongo from 'koa-mongo';
+
 import donate from "./controller/donate";
 
 const startServer = async () => {
@@ -9,6 +12,7 @@ const startServer = async () => {
   const routes = new Router();
   routes.post('/donate', donate);
   app
+    .use(mongo())
     .use(koaBody())
     .use(cors())
     .use(routes.routes())
