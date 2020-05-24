@@ -76,12 +76,13 @@ export default class DonateForm extends Vue {
 
     public async onSubmit(event: InputEvent) {
       event.preventDefault();
-      await this.donateStore.actions.sendDonate(
+      const response = await this.donateStore.actions.sendDonate(
         {
           amount: this.currentDonate,
           currency: this.currentCurrencyCode,
         },
       );
+      alert(response);
     }
 }
 
