@@ -11,7 +11,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import donate from '@/store/donate/DonateStore';
-import PresetsHelper from '@/helpers/PresetsHelper';
+import Helper from '@/helpers/Helper';
 
 @Component({
   props: ['value', 'isSelected', 'index'],
@@ -35,9 +35,9 @@ export default class PresetButton extends Vue {
   private isSelectedLocal: boolean = this.isSelected ? this.isSelected : false;
 
   private get label() {
-    const label = PresetsHelper.makePresetLabel(
+    const label = Helper.makePresetLabel(
       this.valueLocal,
-      this.donateStore.getters.currentCurrency.locale,
+      this.donateStore.state.DEFAULT_LOCALE,
       this.donateStore.getters.currentCurrency.code,
     );
     return `${label} ${this.donateStore.getters.currentCurrency.symbol}`;

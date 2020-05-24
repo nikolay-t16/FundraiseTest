@@ -1,4 +1,4 @@
-class PresetsHelper {
+class Helper {
   private static ACCURACY = 10;
 
   public static makePressetValue(value: number, rate: number): number {
@@ -6,7 +6,7 @@ class PresetsHelper {
       return value;
     }
 
-    return Math.round((value * rate) / PresetsHelper.ACCURACY) * PresetsHelper.ACCURACY;
+    return Math.round((value * rate) / Helper.ACCURACY) * Helper.ACCURACY;
   }
 
   public static makePresetLabel(value: number, locale: string, currency: string): string {
@@ -17,6 +17,12 @@ class PresetsHelper {
       return '';
     }
   }
+
+  public static formatDonate(value: string): number {
+    const formatedValue = Number.parseInt(value, 10);
+
+    return Number.isNaN(formatedValue) ? 0 : formatedValue;
+  }
 }
 
-export default PresetsHelper;
+export default Helper;

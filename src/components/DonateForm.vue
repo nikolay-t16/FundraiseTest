@@ -11,7 +11,11 @@
           @click="onClickPresetButton"
         />
       </div>
-      <input v-model="currentDonate" @change="onCurrentDonateChange"/>
+      <input
+        v-model="currentDonate"
+        @change="onCurrentDonateChange"
+        @keydown="this.onCurrentDonateKeypress"
+      />
       <select v-model="currentCurrencyCode">
         <option
           v-for="currency in donateStore.getters.currencies"
@@ -27,6 +31,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Helper from '@/helpers/Helper';
 import PresetButton from './PresetButton.vue';
 import donate from '../store/donate/DonateStore';
 
@@ -60,8 +65,14 @@ export default class DonateForm extends Vue {
 
     private onCurrentDonateChange() {
       this.currentPresetIndex = null;
+      this.currentDonate = Helper.formatDonate(this.currentDonate.toString());
+    }
+
+    public onCurrentDonateKeypress() {
+      this.onCurrentDonateChange();
     }
 }
+
 </script>
 
 <style lang="scss">

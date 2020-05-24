@@ -1,6 +1,6 @@
 import { Getters } from 'vuex-smart-module';
 import DonateState, { CurrenciesData } from './DonateState';
-import PresetsHelper from '../../helpers/PresetsHelper';
+import Helper from '../../helpers/Helper';
 
 export default class DonateGetters extends Getters<DonateState> {
   public get currencies(): CurrenciesData[] {
@@ -13,6 +13,6 @@ export default class DonateGetters extends Getters<DonateState> {
 
   public get presets(): number[] {
     const { rate } = this.getters.currentCurrency;
-    return this.state.presets.map((value) => PresetsHelper.makePressetValue(value, rate));
+    return this.state.presets.map((value) => Helper.makePressetValue(value, rate));
   }
 }

@@ -3,11 +3,13 @@ interface CurrenciesData {
   code: string;
   symbol: string;
   rate: number;
-  locale: string;
+
 }
 
 class DonateState {
   private readonly DEFAULT_CURRENCY = 'USD';
+
+  public readonly DEFAULT_LOCALE = 'en-US';
 
   public readonly presets = [40, 100, 200, 1000, 2500, 5000];
 
@@ -23,7 +25,6 @@ class DonateState {
         code: 'USD',
         symbol: '$',
         rate: 1,
-        locale: 'en-US',
       },
     );
     this.currencies.set(
@@ -33,7 +34,6 @@ class DonateState {
         code: 'EUR',
         symbol: '€',
         rate: 0.897597,
-        locale: 'en-US',
       },
     );
     this.currencies.set(
@@ -43,7 +43,6 @@ class DonateState {
         code: 'GBP',
         symbol: '£',
         rate: 0.81755,
-        locale: 'en-GB',
       },
     );
     this.currencies.set(
@@ -53,7 +52,6 @@ class DonateState {
         code: 'RUB',
         symbol: '₽',
         rate: 63.461993,
-        locale: 'ru-RU',
       },
     );
   }
