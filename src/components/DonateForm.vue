@@ -1,6 +1,6 @@
 <template>
   <div class="donate-form">
-    <form>
+    <form @submit="onSubmit">
       <div class="donate-form__presets">
         <preset-button
           v-for="(preset, index) in donateStore.getters.presets"
@@ -25,6 +25,7 @@
           {{currency.code}}
         </option>
       </select>
+      <button type="submit">Donate</button>
     </form>
   </div>
 </template>
@@ -56,6 +57,7 @@ export default class DonateForm extends Vue {
       if (this.currentPresetIndex != null) {
         this.currentDonate = this.donateStore.getters.presets[this.currentPresetIndex];
       }
+      console.log('currentCurrencyCode', value, this.donateStore.state.currentCurrency);
     }
 
     private onClickPresetButton(value: number, index: number): void {
@@ -70,6 +72,16 @@ export default class DonateForm extends Vue {
 
     public onCurrentDonateKeypress() {
       this.onCurrentDonateChange();
+    }
+
+    public async onSubmit(event: InputEvent) {
+      event.preventDefault();
+      await this.donateStore.actions.sendDonate(
+        {
+          amount: this.currentDonate,
+          currency: this.currentCurrencyCode,
+        },
+      );
     }
 }
 
