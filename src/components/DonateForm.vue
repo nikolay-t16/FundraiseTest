@@ -6,6 +6,8 @@
           v-for="preset in donateStore.getters.presets"
           v-bind:key="preset"
           :value="preset"
+          :is-selected="preset === currentDonate"
+          @click="onClickPresetButton"
         />
       </div>
       <input v-model="currentDonate"/>
@@ -23,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import PresetButton from './PresetButton.vue';
 import donate from '../store/donate/DonateStore';
 
@@ -37,17 +39,21 @@ export default class DonateForm extends Vue {
 
     private currentDonate = 0;
 
-    protected get currentCurrencyCode(): string {
+    private get currentCurrencyCode(): string {
       return this.donateStore.getters.currentCurrency.code;
     }
 
-    protected set currentCurrencyCode(value: string) {
+    private set currentCurrencyCode(value: string) {
       this.donateStore.mutations.setCurrentCurrency(value);
+    }
+
+    private onClickPresetButton(value: number): void {
+      this.currentDonate = value;
     }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .donate-form {
     max-width: 400px;
   }

@@ -1,5 +1,9 @@
 <template>
-  <div class="presset-button">
+  <div
+    class="presset-button"
+    v-bind:class="{['presset-button_selected']: isSelected}"
+    @click="onClick"
+  >
     {{label}}
   </div>
 </template>
@@ -10,15 +14,20 @@ import donate from '@/store/donate/DonateStore';
 import PresetsHelper from '@/helpers/PresetsHelper';
 
 @Component({
-  props: ['value'],
+  props: ['value', 'isSelected'],
 })
 export default class PresetButton extends Vue {
   private donateStore = donate.context(this.$store);
 
-  @Prop(Object)
+  @Prop(Number)
   public readonly value!: number;
 
   private valueLocal: number = this.value ? this.value : 0;
+
+  @Prop(Boolean)
+  public readonly isSelected!: boolean;
+
+  private isSelectedLocal: boolean = this.isSelected ? this.isSelected : false;
 
   private get label() {
     const label = PresetsHelper.makePresetLabel(
@@ -28,11 +37,19 @@ export default class PresetButton extends Vue {
     );
     return `${label} ${this.donateStore.getters.currentCurrency.symbol}`;
   }
+
+  private onClick() {
+    this.$emit('click', this.valueLocal);
+  }
 }
 </script>
 
-<style scoped lang="scss">
-  .donate-form {
-    max-width: 400px;
+<style lang="scss">
+  .presset-button {
+    cursor: pointer;
+
+    &_selected {
+      color: red;
+    }
   }
 </style>
