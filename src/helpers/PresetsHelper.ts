@@ -8,6 +8,15 @@ class PresetsHelper {
 
     return Math.round((value * rate) / PresetsHelper.ACCURACY) * PresetsHelper.ACCURACY;
   }
+
+  public static makePresetLabel(value: number, locale: string, currency: string): string {
+    try {
+      return value.toLocaleString(locale, { currency });
+    } catch (e) {
+      console.log(e);
+      return '';
+    }
+  }
 }
 
 export default PresetsHelper;

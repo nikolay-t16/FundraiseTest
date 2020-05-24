@@ -3,6 +3,7 @@ interface CurrenciesData {
   code: string;
   symbol: string;
   rate: number;
+  locale: string;
 }
 
 class DonateState {
@@ -15,18 +16,46 @@ class DonateState {
   public currentCurrency = this.DEFAULT_CURRENCY;
 
   constructor() {
-    this.currencies.set('USD', {
-      name: 'US Dollar', code: 'USD', symbol: '$', rate: 1,
-    });
-    this.currencies.set('EUR', {
-      name: 'Euro', code: 'EUR', symbol: '€', rate: 0.897597,
-    });
-    this.currencies.set('GBP', {
-      name: 'British Pound', code: 'GBP', symbol: '£', rate: 0.81755,
-    });
-    this.currencies.set('RUB', {
-      name: 'Russian Ruble', code: 'RUB', symbol: '₽', rate: 63.461993,
-    });
+    this.currencies.set(
+      'USD',
+      {
+        name: 'US Dollar',
+        code: 'USD',
+        symbol: '$',
+        rate: 1,
+        locale: 'en-US',
+      },
+    );
+    this.currencies.set(
+      'EUR',
+      {
+        name: 'Euro',
+        code: 'EUR',
+        symbol: '€',
+        rate: 0.897597,
+        locale: 'en-US',
+      },
+    );
+    this.currencies.set(
+      'GBP',
+      {
+        name: 'British Pound',
+        code: 'GBP',
+        symbol: '£',
+        rate: 0.81755,
+        locale: 'en-GB',
+      },
+    );
+    this.currencies.set(
+      'RUB',
+      {
+        name: 'Russian Ruble',
+        code: 'RUB',
+        symbol: '₽',
+        rate: 63.461993,
+        locale: 'ru-RU',
+      },
+    );
   }
 }
 

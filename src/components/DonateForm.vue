@@ -1,9 +1,14 @@
 <template>
   <div class="donate-form">
     <form>
-      <div v-for="preset in this.donateStore.getters.presets" v-bind:key="preset">
-        {{preset}}
+      <div class="donate-form__presets">
+        <preset-button
+          v-for="preset in donateStore.getters.presets"
+          v-bind:key="preset"
+          :value="preset"
+        />
       </div>
+      <input v-model="currentDonate"/>
       <select v-model="currentCurrencyCode">
         <option
           v-for="currency in donateStore.getters.currencies"
@@ -19,15 +24,18 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import PresetButton from './PresetButton.vue';
 import donate from '../store/donate/DonateStore';
 
-  @Component
+  @Component({
+    components: {
+      PresetButton,
+    },
+  })
 export default class DonateForm extends Vue {
-    @Prop() private msg!: string;
+    private donateStore = donate.context(this.$store);
 
-    protected donateStore = donate.context(this.$store);
-
-    protected presets = this.donateStore.getters.presets;
+    private currentDonate = 0;
 
     protected get currentCurrencyCode(): string {
       return this.donateStore.getters.currentCurrency.code;
@@ -35,7 +43,6 @@ export default class DonateForm extends Vue {
 
     protected set currentCurrencyCode(value: string) {
       this.donateStore.mutations.setCurrentCurrency(value);
-      console.log('currentCurrencyCode', value);
     }
 }
 </script>
